@@ -25,7 +25,7 @@ app.use(session({ secret: 'secret', resave: false, saveUninitialized: false, coo
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/route', users);
+app.use('/users', users);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

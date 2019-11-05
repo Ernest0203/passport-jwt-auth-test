@@ -1,0 +1,33 @@
+.container {
+  padding: 50px 20px;
+}
+
+.formContainer {
+  width: 30%;
+  margin: auto;
+}
+
+.title {
+  margin-bottom: 15px;
+}
+
+.input {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  padding: 5px 10px;
+  height: 34px;
+  outline: none;
+  width: 100%;
+}
+
+.btn {
+  background-color: #dedede;
+  border: none;
+  border-radius: 3px;
+  color: #6d6d6d;
+  font-size: 16px;
+  padding: 8px 12px;
+  margin-right: 20px;
+  cursor: pointer;
+}
