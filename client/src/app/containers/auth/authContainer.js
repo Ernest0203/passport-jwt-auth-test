@@ -1,12 +1,8 @@
-  
 import { connect } from 'react-redux';
 
 import AuthComponent from '../../components/auth/AuthComponent.jsx';
 
-import {
-  loginUser,
-  registerUser,
-} from '../../actions/actions.js';
+import { loginUserAction, registerUserAction } from '../../actions/actions.js';
 
 
 const mapStateToProps = (state) => {
@@ -14,13 +10,9 @@ const mapStateToProps = (state) => {
   return {  };
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  loginUser: (args) => {
-    dispatch(loginUser(args));
-  },
-  registerUser: (args) => {
-    dispatch(registerUser(args));
-  }
+const mapDispatchToProps = dispatch => ({
+  loginUserAction: (args) => dispatch(loginUserAction(args)),
+  registerUserAction: (args) => dispatch(registerUserAction(args)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthComponent);

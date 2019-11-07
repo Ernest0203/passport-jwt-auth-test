@@ -18,7 +18,9 @@ router.get('/user', (req, res) => {
 
 router.post('/login', (req, res, next) => {
   console.log(req.body)
-
+  res.send({id: 1})
+  //res.status(500).send({ error: 'Something failed!' })
+  
   // passport.authenticate('local', (err, user, info) => {
   //   if (err) res.status(500).send([{ message: err }]);
   //   if (!user) res.status(401).send([{ message: 'User not registered' }]);

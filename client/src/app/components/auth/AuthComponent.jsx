@@ -11,12 +11,12 @@ const AuthComponent = (props) => {
 
   const loginUser = () => {
     const data = { login, password };
-    props.loginUser(data);
+    props.loginUserAction(data);
   }
 
   const registerUser = () => {
     const data = { login, password };
-    props.registerUser(data);
+    props.registerUserAction(data);
   }
 
   return (

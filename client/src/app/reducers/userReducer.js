@@ -3,6 +3,7 @@ const initialState = {
     _id: '',
     login: ''
   },
+  error: ''
 }
 
 const user = (state = initialState, action) => {
@@ -13,6 +14,9 @@ const user = (state = initialState, action) => {
     
     case 'RESET_USER':
       return { ...state, user: initialState.user }
+
+    case 'ERROR':
+      return { ...state, error: action.error }
        
     default:
       return state;

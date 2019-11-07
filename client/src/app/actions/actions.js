@@ -1,28 +1,27 @@
-import axios from 'axios';
+export const registerUserAction = (args) => {
+  return {
+    type: 'REGISTER_USER',
+    args
+  }
+};
 
-export const loginUser = args => dispatch => {
-  console.log(args)
-  axios.post('/users/login', args)
-    .then((res) => {
-      dispatch({ type: 'LOGGED_USER', data: res.data })
-    })
-    .catch ((err) => console.log(err))
-}
+export const registerUserSuccess = (data) => {
+  return {
+    type: 'REGISTERED_USER',
+    data
+  }
+};
 
-export const logoutUser = dispatch => {
-  axios.get('/users/logout')
-    .then((res) => {
-      if (!res.data) dispatch({ type: 'RESET_USER' });
-      return;
-    })
-}
+export const loginUserAction = (args) => {
+  return {
+    type: 'LOGIN_USER',
+    args
+  }
+};
 
-export const registerUser = args => dispatch => {
-  axios.post('/users/register', args)
-    .then((res) => {
-
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
+export const loginUserSuccess = (data) => {
+  return {
+    type: 'LOGGED_USER',
+    data
+  }
+};

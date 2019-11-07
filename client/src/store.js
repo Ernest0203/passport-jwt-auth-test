@@ -1,11 +1,17 @@
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 
 import general from './app/reducers/index.js';
+import { watchUserAuthentication } from './app/actions/sagas.js';
+
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   general, 
-  applyMiddleware(thunk)
+  applyMiddleware(sagaMiddleware)
+  //applyMiddleware(thunk)
 );
+
+sagaMiddleware.run(watchUserAuthentication)
 
 export default store;
