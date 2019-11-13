@@ -6,8 +6,8 @@ import { loginUserAction, registerUserAction } from '../../actions/actions.js';
 
 
 const mapStateToProps = (state) => {
-  //const { popupIsOpen, popupType } = state.general.popup;
-  return {  };
+  const { error, confirm } = state.user;
+  return { error, confirm };
 }
 
 const mapDispatchToProps = dispatch => ({

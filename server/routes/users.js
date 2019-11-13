@@ -17,22 +17,18 @@ router.get('/user', (req, res) => {
 })
 
 router.post('/login', (req, res, next) => {
-  console.log(req.body)
-  res.send({id: 1})
-  //res.status(500).send({ error: 'Something failed!' })
-  
-  // passport.authenticate('local', (err, user, info) => {
-  //   if (err) res.status(500).send([{ message: err }]);
-  //   if (!user) res.status(401).send([{ message: 'User not registered' }]);
-  //   req.logIn(user, (err) => {
-  //     if (err) res.status(500).send([{ message: err }]);
-  //     const data = {
-  //       _id: user._id,
-  //       login: user.login
-  //     }
-  //     res.send(data)
-  //   })
-  // })(req, res, next);
+  passport.authenticate('local', (err, user, info) => {
+    if (err) res.status(500).send(err);
+    if (!user) res.status(401).send('User is not registered');
+    req.logIn(user, (err) => {
+      if (err) res.status(500).send(err);
+      const data = {
+        _id: user._id,
+        login: user.login
+      }
+      res.send(data)
+    })
+  })(req, res, next);
 })
 
 router.get('/logout' , (req, res) => {
@@ -41,48 +37,36 @@ router.get('/logout' , (req, res) => {
 });
 
 router.post('/register' , (req, res) => {
-  const { login, password, password2 } = req.body;
- 
-  let errors = [];
+  const { login, password } = req.body.args;
+
   if (!login || !password) {
-    errors.push({ message: 'Please fill in all fields' });
-  }
-  if(password !== password2) {
-    errors.push({ message: 'Password do not match' });
+    res.status(500).send('Fill all fields!');
   }
 
-  if (errors.length > 0) {
-    res.status(500).send(errors);
-  } else { 
-    Users.findOne({ login: login })
-      .then(user => {
-        if (user) {
-          errors.push({ message: 'User exist!' })
-          res.status(500).send(errors);
-        }
-
-        const newUser = {
-          login,
-          password
-        }
-
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-          
-            Users.create(newUser)
-              .then(result => {
-                res.json(result)
-            })
-              .catch(err => {
-                errors.push({ message: err })
-                res.status(500).send(errors);
-              });
+  Users.findOne({ login: login })
+    .then(user => {
+      if (user) {
+        res.status(500).send('Username already exists');
+      }
+      const newUser = {
+        login,
+        password
+      }
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+        
+          Users.create(newUser)
+            .then(result => {
+              res.json(result)
           })
-        }) 
-    })
-  }
+            .catch(err => {
+              res.status(500).send(err);
+            });
+        })
+      }) 
+  })
 });
 
 module.exports = router;

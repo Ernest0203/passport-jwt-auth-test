@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styles from './styles.module.scss';
 
 const AuthComponent = (props) => {
-  const [login, setLogin] = useState();
-  const [password, setPassword] = useState();
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
 
   const setValue = set => e => {
     set(e.target.value);
@@ -18,7 +18,10 @@ const AuthComponent = (props) => {
     const data = { login, password };
     props.registerUserAction(data);
   }
-
+  
+  const error = props.error ? <div className={styles.notifError}>{props.error}</div> : '';
+  const confirm = props.confirm ? <div className={styles.notifConfirm}>{props.confirm}</div> : '';
+  
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
@@ -30,6 +33,7 @@ const AuthComponent = (props) => {
             <button className={styles.btn} onClick={() => loginUser()}>Login</button>
             <button className={styles.btn} onClick={() => registerUser()}>Register</button>
           </div>
+          {error || confirm}
         </div>
       </div>
     </div>

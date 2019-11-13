@@ -9,7 +9,6 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   general, 
   applyMiddleware(sagaMiddleware)
-  //applyMiddleware(thunk)
 );
 
 sagaMiddleware.run(watchUserAuthentication)
